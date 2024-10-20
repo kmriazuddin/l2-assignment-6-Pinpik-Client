@@ -13,8 +13,8 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BiDownvote, BiUpvote } from "react-icons/bi";
 import { useInView } from "react-intersection-observer";
-
 import { MdFavoriteBorder } from "react-icons/md";
+import { IoRefreshCircleOutline } from "react-icons/io5";
 
 const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
   const [page, setPage] = useState(1);
@@ -104,7 +104,11 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
   };
 
   if (isLoading && page === 1) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center m-auto">
+        <span className="loading loading-spinner loading-lg text-info"></span>
+      </div>
+    );
   }
 
   const handleAddFavorite = (post: IPost) => {
@@ -129,13 +133,13 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
                 width={500}
                 height={500}
               />
-              <div className="absolute top-[3%] left-[93%]">
+              <div className="absolute top-[3%] left-[90%]">
                 <button
                   onClick={() => handleAddFavorite(post)}
-                  className="btn btn-sm bg-slate-300 border-none"
+                  className="btn btn-sm bg-slate-50 hover:bg-slate-200 border-none"
                 >
                   {" "}
-                  <MdFavoriteBorder className="text-3xl text-purple-700" />
+                  <MdFavoriteBorder className="text-3xl text-cyan-500" />
                 </button>
               </div>
             </figure>
@@ -145,7 +149,7 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
                 {stripHtmlTags(post.content).substring(0, 100)}...{" "}
                 <Link
                   href={`post/${post._id}`}
-                  className="btn btn-primary btn-sm"
+                  className="btn btn-info btn-sm"
                 >
                   Read More
                 </Link>
@@ -180,12 +184,13 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
                       setShowModal(true), setFollowId(post.author._id);
                     }}
                   >
-                    <div className="w-12 rounded-full">
+                    <div className="w-12">
                       <Image
                         src={post.author.avatar}
                         alt={post.author.name}
                         width={48}
                         height={48}
+                        className="rounded-full border-2"
                       />
                     </div>
                     <p>{post.author.name || "Anonymous"}</p>
@@ -200,7 +205,11 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
       {/* Loader for infinite scroll */}
       <div ref={loadMoreRef} className="w-full text-center py-8">
         {hasMore && <div>Loading more posts...</div>}
-        {!hasMore && <div>No more posts to load.</div>}
+        {!hasMore && (
+          <div className="flex items-center justify-center mx-auto lg:text-2xl">
+            <IoRefreshCircleOutline /> Refresh
+          </div>
+        )}
       </div>
 
       {showModal && (

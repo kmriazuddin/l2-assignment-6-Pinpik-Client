@@ -34,10 +34,18 @@ const Followers = () => {
   const { data: followings, isLoading: followingLoading } =
     useGetFollowingsQuery({ token, userId }, { skip: !followers });
   if (isLoading) {
-    return <p>Loading....</p>;
+    return (
+      <div className="flex justify-center items-center m-auto">
+        <span className="loading loading-spinner loading-lg text-info"></span>
+      </div>
+    );
   }
   if (followingLoading) {
-    return <p>Loading....</p>;
+    return (
+      <div className="flex justify-center items-center m-auto">
+        <span className="loading loading-spinner loading-lg text-info"></span>
+      </div>
+    );
   }
 
   return (

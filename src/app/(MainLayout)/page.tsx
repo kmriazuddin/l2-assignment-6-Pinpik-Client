@@ -2,6 +2,7 @@
 
 import AddPost from "@/components/AddPost/AddPost";
 import AllPosts from "@/components/AllPost/AllPosts";
+import Footer from "@/components/SharedComponents/Footer/Footer";
 
 import { useSearchParams } from "next/navigation";
 
@@ -10,9 +11,10 @@ const Home = () => {
   const searchQuery = searchParams?.get("search") || "";
 
   return (
-    <div>
+    <div className="bg-slate-300">
       <AddPost />
       <AllPosts searchQuery={searchQuery} />
+      <Footer />
     </div>
   );
 };
