@@ -7,15 +7,10 @@ import { useAddPostMutation } from "@/redux/features/posts/posts.api";
 import { useUploadImageMutation } from "@/redux/features/uploadImage/uploadImage.api";
 import toast from "react-hot-toast";
 import { useTypedSelector } from "@/redux/hooks/useTypedSelector";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { IoImageOutline } from "react-icons/io5";
 
 const QuillEditor = dynamic(() => import("react-quill"), { ssr: false });
-
-// const getErrorMessage = () => {
-//   if (error && 'data' in error) {
-//     return (error.data as any)?.message || "Error uploading image.";
-//   }
-//   return "An unexpected error occurred.";
-// };
 
 const AddPost = () => {
   const token = useTypedSelector((state) => state.auth.token);
@@ -47,7 +42,7 @@ const AddPost = () => {
       const res = await uploadImage({ data: formData }).unwrap();
       if (res.success === true) {
         toast.success("Image uploaded successfully");
-        setImageLink(res.data.link); // Store the image link
+        setImageLink(res.data.link);
       }
     } catch (err) {
       toast.error("Upload failed");
@@ -143,8 +138,8 @@ const AddPost = () => {
   ];
 
   return (
-    <>
-      <div className="max-w-7xl mx-auto mt-24 p-5">
+    <div className="bg-white">
+      <div className="max-w-7xl mx-auto pt-24 p-5">
         <label>
           Title <span className="text-red-400">*</span>
         </label>
@@ -153,7 +148,7 @@ const AddPost = () => {
           type="text"
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Type here"
-          className="input input-bordered w-full max-w-full mb-5 mt-2"
+          className="input input-bordered w-full max-w-full mb-5 mt-2 bg-slate-200"
         />
 
         <div>
@@ -162,19 +157,19 @@ const AddPost = () => {
           </label>
           <br />
           <input
-            className="file-input file-input-bordered w-full max-w-xs mb-5 mt-3 mr-5"
+            className="file-input file-input-bordered w-full max-w-xs mb-5 mt-3 mr-5 bg-cyan-800"
             type="file"
             onChange={handleFileChange}
           />
           <button
-            className="btn btn-sm btn-outline btn-success"
+            className="btn btn-md btn-outline btn-info"
             onClick={handleUpload}
             disabled={isLoading}
           >
             {isLoading ? (
               <span className="loading loading-spinner"></span>
             ) : (
-              "Upload Image"
+              <>{"Upload Image"} <IoImageOutline className="text-xl" /></>
             )}
           </button>
           {isSuccess && <p>Image uploaded successfully!</p>}
@@ -202,20 +197,20 @@ const AddPost = () => {
           <input
             required
             type="text"
-            placeholder="Ex - Gardening, Tips, Plants, Horticulture"
-            className="input input-bordered w-full max-w-xl"
+            placeholder="Ex - girl, travel, nature"
+            className="input input-bordered w-full max-w-xl bg-slate-200"
             onChange={handleTagsChange}
           />
         </div>
 
         <button
           onClick={handleAddPost}
-          className="btn btn-outline btn-success mt-5"
+          className="btn btn-outline btn-info mt-5"
         >
-          Create Post
+          Create Post <IoIosAddCircleOutline className="text-xl" />
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

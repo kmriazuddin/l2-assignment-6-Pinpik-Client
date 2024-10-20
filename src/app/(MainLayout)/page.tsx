@@ -11,7 +11,7 @@ const Home = () => {
   const searchQuery = searchParams?.get("search") || "";
 
   return (
-    <div className="bg-slate-300">
+    <div className="bg-white px-2 md:px-0 lg:px-0">
       <AddPost />
       <AllPosts searchQuery={searchQuery} />
       <Footer />

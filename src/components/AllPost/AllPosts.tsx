@@ -123,7 +123,7 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
         return (
           <div
             key={post._id}
-            className="card card-compact bg-base-100 shadow-xl"
+            className="card card-compact bg-white shadow-xl"
           >
             <figure className="relative">
               <Image

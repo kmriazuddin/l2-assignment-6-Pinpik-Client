@@ -18,6 +18,7 @@ import {
 } from "@/redux/features/comments/comments.api";
 import toast from "react-hot-toast";
 import { useTypedSelector } from "@/redux/hooks/useTypedSelector";
+import Footer from "@/components/SharedComponents/Footer/Footer";
 
 interface CommentErrorType {
   status?: number;
@@ -67,14 +68,16 @@ const PostDetails = ({ params }: TParams) => {
   const [deleteComment] = useDeleteCommentMutation();
 
   if (isLoading) {
-    return <p>Loading...!</p>;
+    return (
+      <div className="flex justify-center items-center m-auto">
+        <span className="loading loading-spinner loading-lg text-info"></span>
+      </div>
+    );
   }
 
   if (error) {
     return <p>Error loading post details.</p>;
   }
-
-  // console.log(allComments?.data.length);
 
   const singlePostData = data?.data || {};
   const { title, content, images, tags, category, upvotes, downvotes, author } =
@@ -124,7 +127,7 @@ const PostDetails = ({ params }: TParams) => {
         setUpdateCommentModal(false);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -142,13 +145,13 @@ const PostDetails = ({ params }: TParams) => {
         setShowModal(false);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   return (
-    <>
-      <div className="max-w-7xl mx-auto p-5 mt-24">
+    <div className="bg-white">
+      <div className="max-w-7xl mx-auto p-5 pt-24">
         <div className="mb-4">
           <h1 className="text-3xl font-bold mb-3">{title} </h1>
           <span>
@@ -166,13 +169,18 @@ const PostDetails = ({ params }: TParams) => {
                 alt={`Post image ${index + 1}`}
                 width={500}
                 height={100}
-                style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  objectFit: "cover",
+                  margin: "auto",
+                }}
+                className="rounded-xl"
               />
             </SwiperSlide>
           ))}
         </Swiper>
-
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <div className="mt-2" dangerouslySetInnerHTML={{ __html: content }} />
         <div>
           <strong>Tags:</strong> {tags?.join(", ")}
         </div>
@@ -188,7 +196,7 @@ const PostDetails = ({ params }: TParams) => {
         <div className="mb-5">
           <button
             onClick={() => setAddCommentModal(true)}
-            className="btn btn-outline btn-success btn-md"
+            className="btn btn-outline btn-info btn-md"
           >
             Add Comment
           </button>
@@ -231,7 +239,7 @@ const PostDetails = ({ params }: TParams) => {
 
         {showModal && (
           <dialog id="my_modal_3" className="modal" open>
-            <div className="modal-box w-[250px] ">
+            <div className="modal-box w-[250px] lg:w-[400px] lg:h-[200px]">
               <form method="dialog">
                 <button
                   onClick={() => setShowModal(false)}
@@ -243,7 +251,7 @@ const PostDetails = ({ params }: TParams) => {
               <div className="flex flex-col space-y-4 p-5">
                 <button
                   onClick={() => setUpdateCommentModal(true)}
-                  className="btn btn-primary"
+                  className="btn btn-info"
                 >
                   Update
                 </button>
@@ -256,7 +264,7 @@ const PostDetails = ({ params }: TParams) => {
         )}
         {addCommentModal && (
           <dialog id="my_modal_3" className="modal" open>
-            <div className="modal-box w-[280px]">
+            <div className="modal-box w-[280px] lg:w-[500px] lg:h-[270px]">
               <form method="dialog">
                 <button
                   onClick={() => setAddCommentModal(false)}
@@ -267,14 +275,16 @@ const PostDetails = ({ params }: TParams) => {
               </form>
               <form action="" onSubmit={handleAddComment}>
                 <textarea
+                  rows={5}
+                  cols={58}
                   className="textarea textarea-bordered"
-                  placeholder="Type comment"
+                  placeholder="Type comment..."
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                 ></textarea>
                 <button
                   type="submit"
-                  className="btn btn-outline btn-info btn-sm"
+                  className="btn btn-outline btn-info btn-sm btn-ghost"
                 >
                   Add
                 </button>
@@ -284,7 +294,7 @@ const PostDetails = ({ params }: TParams) => {
         )}
         {updateCommentModal && (
           <dialog id="my_modal_3" className="modal" open>
-            <div className="modal-box w-[280px]">
+            <div className="modal-box w-[280px] lg:w-[500px] lg:h-[270px]">
               <form method="dialog">
                 <button
                   onClick={() => setUpdateCommentModal(false)}
@@ -295,6 +305,8 @@ const PostDetails = ({ params }: TParams) => {
               </form>
               <form action="" onSubmit={handleUpdateComment}>
                 <textarea
+                  rows={5}
+                  cols={58}
                   className="textarea textarea-bordered"
                   placeholder="Type comment"
                   value={updateComment}
@@ -311,7 +323,10 @@ const PostDetails = ({ params }: TParams) => {
           </dialog>
         )}
       </div>
-    </>
+
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 };
 

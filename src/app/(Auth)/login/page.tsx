@@ -3,7 +3,7 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input, Typography } from "antd";
 import Lottie from "lottie-react";
-import loging from "../../assests/login.json";
+import signup from "../../assests/signup.json";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
@@ -45,58 +45,69 @@ const Login = () => {
     }
   };
   return (
-    <Flex
-      className="mt-24 max-w-7xl mx-auto"
-      justify="space-between"
-      align="center"
-    >
-      <Flex className="w-[45%]">
-        <Lottie animationData={loging} loop={true} width={400} height={400} />
-      </Flex>
-      <Flex className="w-[45%]" style={{ flexDirection: "column" }}>
-        <Typography.Title level={1} style={{ textAlign: "center" }}>
-          LOGIN
-        </Typography.Title>
+    <div className="bg-white h-screen">
+      <Flex
+        className="pt-24 max-w-7xl mx-auto"
+        justify="space-between"
+        align="center"
+      >
+        <Flex className="w-[45%]">          
+        <Lottie animationData={signup} loop={true} width={400} height={400} />
+        </Flex>
+        <Flex className="w-[45%]" style={{ flexDirection: "column" }}>
+          <Typography.Title level={1} style={{ textAlign: "center" }}>
+            LOGIN
+          </Typography.Title>
 
-        <Form
-          name="login"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          style={{ width: "100%", marginTop: "40px" }}
-        >
-          <Form.Item
-            name="email"
-            rules={[{ required: true, message: "Please input your Username!" }]}
+          <Form
+            name="login"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            style={{ width: "100%", marginTop: "40px" }}
           >
-            <Input prefix={<UserOutlined />} placeholder="Email" />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: "Please input your Password!" }]}
-          >
-            <Input
-              prefix={<LockOutlined />}
-              type="password"
-              placeholder="Password"
-            />
-          </Form.Item>
-          <Form.Item>
-            <Flex justify="space-between" align="center">
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-            </Flex>
-          </Form.Item>
+            <Form.Item
+              name="email"
+              rules={[
+                { required: true, message: "Please input your Username!" },
+              ]}
+            >
+              <Input prefix={<UserOutlined />} placeholder="Email" />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[
+                { required: true, message: "Please input your Password!" },
+              ]}
+            >
+              <Input
+                prefix={<LockOutlined />}
+                type="password"
+                placeholder="Password"
+              />
+            </Form.Item>
+            <Form.Item>
+              <Flex justify="space-between" align="center">
+                <Form.Item name="remember" valuePropName="checked" noStyle>
+                  <Checkbox>Remember me</Checkbox>
+                </Form.Item>
+              </Flex>
+            </Form.Item>
 
-          <Form.Item>
-            <Button block type="primary" htmlType="submit">
-              Log in
-            </Button>
-            or <Link href="/register">Register now!</Link>
-          </Form.Item>
-        </Form>
+            <Form.Item>
+              <Button block type="primary" htmlType="submit">
+                Log in
+              </Button>
+            </Form.Item>
+            <p className="text-center mx-auto">
+              {`Don't have an account?`}{" "}
+              <Link href="/register" className="text-rose-500">
+                Register now!
+              </Link>
+            </p>
+          </Form>
+        </Flex>
       </Flex>
-    </Flex>
+    </div>
   );
 };
 

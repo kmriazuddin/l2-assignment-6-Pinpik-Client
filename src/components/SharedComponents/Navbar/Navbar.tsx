@@ -26,7 +26,7 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
 
   function handleLogOut() {
-    toast.success("Log Out successfully");
+    toast.success("Log Out successfully!");
     dispatch(Logout());
   }
 
@@ -136,7 +136,7 @@ const Navbar = () => {
                 href="/login"
                 className="btn bg-rose-500 border-0 hover:bg-rose-400 text-white"
               >
-                Sign Up
+                Log in
               </Link>
             )}
           </div>
