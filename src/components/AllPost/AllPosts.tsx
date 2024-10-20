@@ -11,9 +11,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { BiDownvote, BiUpvote } from "react-icons/bi";
+import { SlDislike, SlLike } from "react-icons/sl";
 import { useInView } from "react-intersection-observer";
-import { MdFavoriteBorder } from "react-icons/md";
+import { MdDownloading, MdFavoriteBorder } from "react-icons/md";
+import { useAddFavouriteMutation } from "@/redux/features/favorite/favorite.api";
 import { IoRefreshCircleOutline } from "react-icons/io5";
 
 const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
@@ -23,6 +24,7 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
     searchQuery,
     page,
   });
+  const [addFavourite] = useAddFavouriteMutation();
   const [hasMore, setHasMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [followId, setFollowId] = useState("");
@@ -111,19 +113,39 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
     );
   }
 
-  const handleAddFavorite = (post: IPost) => {
-    console.log(post, userId);
+  const handleAddFavorite = async (post: IPost) => {
+    const favouriteData = {
+      postId: post._id,
+    };
+
+    try {
+      const res = await addFavourite({ token, favouriteData });
+      if (res.data.success === true) {
+        toast.success("Added to your favorite list");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("You have already added it on favorite list");
+    }
   };
 
+  if (isLoading && page === 1) {
+    return (
+      <div className="flex justify-center items-center m-auto">
+        <span className="loading loading-spinner loading-lg text-info"></span>
+      </div>
+    );
+  }
+
   return (
-    <div className="grid gap-6 justify-center mt-8">
+    <div className="grid gap-6 justify-center mt-8 p-5 lg:p-0">
       {posts.map((post: IPost) => {
         const userVote = getUserVoteStatus(post.voters);
 
         return (
           <div
             key={post._id}
-            className="card card-compact bg-white shadow-xl"
+            className="card card-compact bg-base-100 shadow-xl"
           >
             <figure className="relative">
               <Image
@@ -133,12 +155,14 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
                 width={500}
                 height={500}
               />
-              <div className="absolute top-[3%] left-[90%]">
+              <div className="absolute top-[3%]">
+                <p className="text-rose-500 font-semibold">{post.author?.name || "Anonymous"}</p>
+              </div>
+              <div className="absolute top-[3%] lg:left-[90%] left-[80%]">
                 <button
                   onClick={() => handleAddFavorite(post)}
-                  className="btn btn-sm bg-slate-50 hover:bg-slate-200 border-none"
+                  className="btn btn-sm bg-slate-100 border-none"
                 >
-                  {" "}
                   <MdFavoriteBorder className="text-3xl text-cyan-500" />
                 </button>
               </div>
@@ -147,10 +171,7 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
               <h2 className="card-title">{post.title}</h2>
               <p>
                 {stripHtmlTags(post.content).substring(0, 100)}...{" "}
-                <Link
-                  href={`post/${post._id}`}
-                  className="btn btn-info btn-sm"
-                >
+                <Link href={`post/${post._id}`} className="btn btn-info btn-sm">
                   Read More
                 </Link>
               </p>
@@ -163,7 +184,7 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
                       userVote === 1 ? "text-blue-500" : ""
                     }`}
                   >
-                    <BiUpvote />
+                    <SlLike />
                   </span>
                 </p>
                 <p className="flex items-center gap-3">
@@ -174,7 +195,7 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
                       userVote === -1 ? "text-red-500" : ""
                     }`}
                   >
-                    <BiDownvote />
+                    <SlDislike />
                   </span>
                 </p>
                 {post.author && (
@@ -186,14 +207,16 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
                   >
                     <div className="w-12">
                       <Image
-                        src={post.author.avatar}
+                        src={
+                          post.author.avatar ||
+                          "https://i.ibb.co.com/d4VWJPK/data-found.jpg"
+                        }
                         alt={post.author.name}
                         width={48}
                         height={48}
                         className="rounded-full border-2"
                       />
                     </div>
-                    <p>{post.author.name || "Anonymous"}</p>
                   </div>
                 )}
               </div>
@@ -204,9 +227,13 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
 
       {/* Loader for infinite scroll */}
       <div ref={loadMoreRef} className="w-full text-center py-8">
-        {hasMore && <div>Loading more posts...</div>}
+        {hasMore && (
+          <div>
+            <MdDownloading /> More Posts...
+          </div>
+        )}
         {!hasMore && (
-          <div className="flex items-center justify-center mx-auto lg:text-2xl">
+          <div className="flex justify-center items-center text-xl">
             <IoRefreshCircleOutline /> Refresh
           </div>
         )}
@@ -214,17 +241,17 @@ const AllPosts = ({ searchQuery }: { searchQuery: string }) => {
 
       {showModal && (
         <dialog id="my_modal_3" className="modal" open>
-          <div className="modal-box w-[150px]">
+          <div className="modal-box w-[200px] bg-yellow-50">
             <form method="dialog">
               <button
                 onClick={() => setShowModal(false)}
-                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                className="btn btn-sm btn-circle btn-error absolute right-2 top-2"
               >
                 ✕
               </button>
             </form>
             <form action="" onSubmit={handleFollow}>
-              <button type="submit" className="btn btn-outline btn-info btn-sm">
+              <button type="submit" className="btn btn-outline btn-info btn-md">
                 Follow
               </button>
             </form>

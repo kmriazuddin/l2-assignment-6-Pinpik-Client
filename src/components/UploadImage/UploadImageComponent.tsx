@@ -43,7 +43,7 @@ const UploadImageComponent = ({
         onChange={handleFileChange}
       />
       <button
-        className="btn btn-sm btn-outline btn-success mr-3"
+        className="btn btn-md btn-outline btn-info mr-3"
         onClick={handleUpload}
         disabled={isLoading}
       >
@@ -56,8 +56,8 @@ const UploadImageComponent = ({
           "Upload Image"
         )}
       </button>
-      {isSuccess && <p>Upload successful!</p>}
-      {isError && <p>Error uploading:</p>}
+      {isSuccess && <p className="text-cyan-500">Upload successful!</p>}
+      {isError && <p className="text-rose-500">Error uploading:</p>}
     </div>
   );
 };

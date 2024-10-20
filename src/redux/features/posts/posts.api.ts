@@ -14,6 +14,29 @@ const postsApi = baseApi.injectEndpoints({
         };
       },
     }),
+    updatePost: builder.mutation({
+      query: ({ data, token, postId }) => {
+        return {
+          url: `/post/${postId}`,
+          method: "PUT",
+          body: data,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
+    deletePost: builder.mutation({
+      query: ({ token, postId }) => {
+        return {
+          url: `/post/${postId}`,
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
     getAllPost: builder.query({
       query: ({ searchQuery, page }) => {
         console.log(searchQuery, page);
@@ -72,6 +95,8 @@ const postsApi = baseApi.injectEndpoints({
 export const {
   useGetAllPostQuery,
   useGetSinglePostQuery,
+  useUpdatePostMutation,
+  useDeletePostMutation,
   useUpvoteDownvoteMutation,
   useGetCommentByPostIdQuery,
   useAddPostMutation,

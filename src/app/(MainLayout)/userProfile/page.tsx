@@ -3,7 +3,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="bg-white">
+    <div className="bg-white min-h-[calc(100vh-68px)]">
       <UserProfile></UserProfile>
     </div>
   );

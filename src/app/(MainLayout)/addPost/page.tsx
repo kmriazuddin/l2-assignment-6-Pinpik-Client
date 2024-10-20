@@ -172,8 +172,8 @@ const AddPost = () => {
               <>{"Upload Image"} <IoImageOutline className="text-xl" /></>
             )}
           </button>
-          {isSuccess && <p>Image uploaded successfully!</p>}
-          {isError && <p>Error uploading</p>}
+          {isSuccess && <p className="text-cyan-500">Image uploaded successfully!</p>}
+          {isError && <p className="text-rose-500">Error uploading</p>}
         </div>
 
         <div>

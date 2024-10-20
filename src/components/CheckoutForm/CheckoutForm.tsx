@@ -50,10 +50,14 @@ const CheckoutForm = ({ price }: { price: number }) => {
     { skip: !data }
   );
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex justify-center items-center m-auto">
+        <span className="loading loading-spinner loading-lg text-info"></span>
+      </div>
+    );
   }
 
-  const totalUpvote = userPosts.data.reduce(
+  const totalUpvote = userPosts?.data?.reduce(
     (acc: number, curr: IPost) => acc + curr.upvotes,
     0
   );
@@ -134,7 +138,7 @@ const CheckoutForm = ({ price }: { price: number }) => {
     <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
       <CardElement />
       <button
-        className="btn hover:bg-green-800 bg-rose-300"
+        className="btn hover:bg-cyan-800 bg-rose-300"
         type="submit"
         disabled={!stripe || !clientSecret}
         style={{
