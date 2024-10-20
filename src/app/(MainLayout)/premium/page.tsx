@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/CheckoutForm/CheckoutForm";
+import Footer from "@/components/SharedComponents/Footer/Footer";
 
 const Membership = () => {
   const stripePromise = loadStripe(
@@ -11,12 +12,12 @@ const Membership = () => {
   );
 
   return (
-    <div>
-      <div>
-        <h1 className="mt-20 text-center text-4xl font-bold uppercase">
-          Payment
+    <div className="bg-white pt-24 min-h-[calc(100vh-68px)]">
+      <div className="h-screen">
+        <h1 className="pt-20 text-center text-4xl font-bold uppercase">
+          Stipe Payment
         </h1>
-        <p className="text-xl font-bold my-5 text-center">Price: $10</p>
+        <p className="text-xl font-bold my-5 text-center">Price: $30</p>
         <div></div>
         <div className="mt-12 max-w-sm mx-auto">
           <Elements stripe={stripePromise}>
@@ -24,6 +25,8 @@ const Membership = () => {
           </Elements>
         </div>
       </div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

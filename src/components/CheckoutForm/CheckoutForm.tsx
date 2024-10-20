@@ -134,7 +134,7 @@ const CheckoutForm = ({ price }: { price: number }) => {
     <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
       <CardElement />
       <button
-        className="btn hover:bg-green-800"
+        className="btn hover:bg-green-800 bg-rose-300"
         type="submit"
         disabled={!stripe || !clientSecret}
         style={{

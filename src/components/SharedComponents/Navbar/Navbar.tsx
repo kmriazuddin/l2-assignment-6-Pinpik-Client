@@ -81,7 +81,7 @@ const Navbar = () => {
                       : ""
                   }
                 >
-                  <IoIosPeople className="text-white text-xl w-full mx-auto" />
+                  <IoIosPeople className="text-white text-2xl w-full mx-auto" />
                 </li>
               </Link>
             </ul>
@@ -118,13 +118,13 @@ const Navbar = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                  className="dropdown-content menu bg-cyan-700 rounded-box z-[1] w-52 p-2 shadow text-white"
                 >
                   <li>
                     <Link href="/userProfile">{user?.name}</Link>
                   </li>
                   <li>
-                    <Link href="/membership">Verified</Link>
+                    <Link href="/premium">Verified</Link>
                   </li>
                   <li>
                     <a onClick={handleLogOut}>Logout</a>
