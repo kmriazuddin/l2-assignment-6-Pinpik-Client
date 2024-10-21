@@ -13,6 +13,8 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import { Logout } from "@/redux/features/auth/authSlice";
 import { MdWorkspacePremium } from "react-icons/md";
+import { GrGallery } from "react-icons/gr";
+import { AiOutlineMail } from "react-icons/ai";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -65,9 +67,7 @@ const Navbar = () => {
               <Link href="/">
                 <li
                   className={
-                    isActive("/")
-                      ? "border-b-4 border-b-rose-500 w-12 p-2"
-                      : ""
+                    isActive("/") ? "border-b-4 border-b-rose-500 w-12 p-2" : ""
                   }
                 >
                   <FaHome className="text-white text-2xl w-full mx-auto" />
@@ -82,6 +82,28 @@ const Navbar = () => {
                   }
                 >
                   <IoIosPeople className="text-white text-2xl w-full mx-auto" />
+                </li>
+              </Link>
+              <Link href="/gallery">
+                <li
+                  className={
+                    isActive("/gallery")
+                      ? "border-b-4 border-b-[#9EF01A] w-12 p-2"
+                      : ""
+                  }
+                >
+                  <GrGallery className="text-white text-2xl w-full mx-auto" />
+                </li>
+              </Link>
+              <Link href="/followers">
+                <li
+                  className={
+                    isActive("/followers")
+                      ? "border-b-4 border-b-[#9EF01A] w-12 p-2"
+                      : ""
+                  }
+                >
+                  <AiOutlineMail className="text-white text-2xl w-full mx-auto" />
                 </li>
               </Link>
             </ul>
@@ -123,6 +145,11 @@ const Navbar = () => {
                   <li>
                     <Link href="/userProfile">{user?.name}</Link>
                   </li>
+                  {user && user.role === "admin" && (
+                    <li>
+                      <Link href="/dashboard">Admin Dashboard</Link>
+                    </li>
+                  )}
                   <li>
                     <Link href="/premium">Verified</Link>
                   </li>

@@ -34,11 +34,11 @@ const CheckoutForm = ({ price }: { price: number }) => {
         console.log(res);
 
         if (res?.data?.clientSecret) {
-          setClientSecret(res.data.clientSecret);
+          setClientSecret(res?.data?.clientSecret);
         }
       } catch (error) {
         console.log(error);
-        setError("Failed to initialize payment.");
+        setError("Failed to initialize payment!");
       }
     };
 

@@ -20,7 +20,6 @@ const authApi = baseApi.injectEndpoints({
         };
       },
     }),
-
     userUpdate: builder.mutation({
       query: ({ token, updateInfo }) => {
         return {
@@ -33,8 +32,38 @@ const authApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getAllUser: builder.query({
+      query: ({ token }) => {
+        return {
+          url: "auth/users",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
+    userRoleUpdate: builder.mutation({
+      query: ({ token, updateInfo, userId }) => {
+        console.log(userId);
+
+        return {
+          url: `auth/user/role/${userId}`,
+          method: "PUT",
+          body: updateInfo,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useUserUpdateMutation } =
-  authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useGetAllUserQuery,
+  useUserUpdateMutation,
+  useUserRoleUpdateMutation
+} = authApi;
