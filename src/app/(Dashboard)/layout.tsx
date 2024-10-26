@@ -1,5 +1,7 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import { FaUserShield } from "react-icons/fa";
+import { FaPhotoFilm } from "react-icons/fa6";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -11,7 +13,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           htmlFor="my-drawer-2"
           className="btn btn-info drawer-button lg:hidden"
         >
-          Open drawer
+          Open Menu
         </label>
       </div>
       <div className="drawer-side">
@@ -28,16 +30,28 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
               </button>
             </Link>
           </div>
-          <div className="mt-10">
-            <Link href="/dashboard/all-user">
-              <li className="text-lg lg:text-xl font-bold btn bg-transparent hover:bg-transparent border-0 w-full">
-                User Management
-              </li>
+          <div className="mt-10 lg:space-y-5">
+            <Link
+              href="/dashboard/all-user"
+              className="flex items-center gap-2 bg-sky-500 p-2 rounded hover:bg-pink-500 duration-300 text-white"
+            >
+              <span className="text-xl">
+                <FaUserShield />
+              </span>
+              <h1 className="text-lg lg:text-xl font-bold bg-transparent hover:bg-transparent border-0 w-full">
+                All User
+              </h1>
             </Link>
-            <Link href="/dashboard/all-post">
-              <li className="text-lg lg:text-xl font-bold btn bg-transparent hover:bg-transparent border-0 w-full">
-                Content Moderation
-              </li>
+            <Link
+              href="/dashboard/all-post"
+              className="flex items-center gap-2 bg-sky-500 p-2 rounded hover:bg-pink-500 duration-300 text-white"
+            >
+              <span className="text-xl">
+                <FaPhotoFilm />
+              </span>
+              <h1 className="text-lg lg:text-xl font-bold bg-transparent hover:bg-transparent border-0 w-full">
+                All Content
+              </h1>
             </Link>
           </div>
         </ul>

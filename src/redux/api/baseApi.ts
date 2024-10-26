@@ -8,8 +8,8 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:8000/api",
-  // baseUrl: "https://pinpik-server.vercel.app/api",
+  // baseUrl: "http://localhost:8000/api",
+  baseUrl: "https://pinpik-server.vercel.app/api",
 });
 
 const baseQueryAuth: BaseQueryFn<

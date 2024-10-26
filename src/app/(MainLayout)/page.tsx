@@ -1,6 +1,5 @@
 "use client";
 
-import AddPost from "@/components/AddPost/AddPost";
 import AllPosts from "@/components/AllPost/AllPosts";
 import Footer from "@/components/SharedComponents/Footer/Footer";
 
@@ -11,8 +10,7 @@ const Home = () => {
   const searchQuery = searchParams?.get("search") || "";
 
   return (
-    <div className="bg-white px-2 md:px-0 lg:px-0">
-      <AddPost />
+    <div className="px-2 md:px-0 lg:px-0 pt-20 bg-white">
       <AllPosts searchQuery={searchQuery} />
       <Footer />
     </div>

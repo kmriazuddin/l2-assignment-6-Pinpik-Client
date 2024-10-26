@@ -1,3 +1,5 @@
+"use client"
+
 import { useGetAllPostQuery } from "@/redux/features/posts/posts.api";
 import React from "react";
 

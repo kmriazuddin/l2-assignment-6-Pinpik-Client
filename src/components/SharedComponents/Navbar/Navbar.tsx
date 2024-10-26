@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { FaHome } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -12,9 +11,9 @@ import {
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { Logout } from "@/redux/features/auth/authSlice";
-import { MdWorkspacePremium } from "react-icons/md";
-import { GrGallery } from "react-icons/gr";
-import { AiOutlineMail } from "react-icons/ai";
+import { RiGalleryView2 } from "react-icons/ri";
+import { MdDynamicFeed } from "react-icons/md";
+import { FaRegPlusSquare } from "react-icons/fa";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -52,7 +51,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="bg-cyan-500 fixed top-0 left-0 right-0 z-10 w-full">
+      <div className="bg-black fixed top-0 left-0 right-0 z-10 w-full">
         <div className="navbar max-w-7xl mx-auto ">
           <div className="navbar-start">
             <Link
@@ -63,48 +62,48 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="px-1 flex justify-center items-center gap-32">
-              <Link href="/">
+            <ul className="px-1 flex justify-center items-center gap-32 text-white">
+              <Link href="/" className="flex items-center gap-2">
                 <li
                   className={
-                    isActive("/") ? "border-b-4 border-b-rose-500 w-12 p-2" : ""
+                    isActive("/") ? "border-b-4 border-b-rose-500" : ""
                   }
                 >
-                  <FaHome className="text-white text-2xl w-full mx-auto" />
+                  Home
                 </li>
+                <MdDynamicFeed />
               </Link>
-              <Link href="/follower">
+              <Link href="/addPost" className="flex items-center gap-2">
                 <li
                   className={
-                    isActive("/follower")
-                      ? "border-b-4 border-b-rose-500 w-12 p-2"
-                      : ""
+                    isActive("/addPost") ? "border-b-4 border-b-rose-500" : ""
                   }
                 >
-                  <IoIosPeople className="text-white text-2xl w-full mx-auto" />
+                  Post
                 </li>
+                <FaRegPlusSquare className="text-white font-bold" />
               </Link>
-              <Link href="/gallery">
+              <Link href="/follower" className="flex items-center gap-2">
+                <li
+                  className={
+                    isActive("/follower") ? "border-b-4 border-b-rose-500" : ""
+                  }
+                >
+                  Follow
+                </li>
+                <IoIosPeople />
+              </Link>
+              <Link href="/gallery" className="flex items-center gap-2">
                 <li
                   className={
                     isActive("/gallery")
-                      ? "border-b-4 border-b-[#9EF01A] w-12 p-2"
+                      ? "border-b-4 border-b-rose-500 w-12"
                       : ""
                   }
                 >
-                  <GrGallery className="text-white text-2xl w-full mx-auto" />
+                  Gallery
                 </li>
-              </Link>
-              <Link href="/followers">
-                <li
-                  className={
-                    isActive("/followers")
-                      ? "border-b-4 border-b-[#9EF01A] w-12 p-2"
-                      : ""
-                  }
-                >
-                  <AiOutlineMail className="text-white text-2xl w-full mx-auto" />
-                </li>
+                <RiGalleryView2 />
               </Link>
             </ul>
           </div>
@@ -130,11 +129,6 @@ const Navbar = () => {
                         width={48}
                         height={48}
                       />
-                    </div>
-                    <div>
-                      {user.isPremium === true && (
-                        <MdWorkspacePremium className="text-3xl text-[#FFD700] absolute top-[50%] left-[55%]" />
-                      )}
                     </div>
                   </div>
                 </div>

@@ -84,35 +84,38 @@ const Followers = () => {
   return (
     <div className="bg-white min-h-[calc(100vh-68px)]">
       <div className="pt-24 max-w-7xl mx-auto h-screen">
-        <h1 className=" text-xl lg:text-4xl font-bold text-center">
+        <h1 className="text-black text-xl lg:text-4xl font-bold text-center">
           Followers and Following
         </h1>
         <div className="flex justify-around items-center mt-12 flex-col lg:flex-row">
           <div className="space-y-5">
-            <h1 className="font-bold text-2xl">Follower User</h1>
+            <h1 className="font-bold text-2xl text-black">Follower User</h1>
             <div>
-              {followers?.data.map((follower: Follower) => (
+              {followers?.data.map((follower: Follower, index: number) => (
                 <p
-                  className="w-[250px] border-2 p-1 rounded-md m-1"
+                  className="w-[250px] p-1 rounded-md m-1 text-black"
                   key={follower._id}
                 >
+                  {index + 1}{". "}
                   {follower.userId.name}
                 </p>
               ))}
             </div>
           </div>
           <div className="space-y-5">
-            <h1 className="font-bold text-2xl">Following User</h1>
+            <h1 className="font-bold text-2xl text-black">Following User</h1>
             <div>
-              {followings?.data.map((following: FollowingUser) => (
+              {followings?.data.map((following: FollowingUser, index: number) => (
                 <div key={following._id}>
                   <div className="flex gap-2 justify-center items-center">
-                    <p className="w-[250px] border-2 p-1 rounded-md m-1">
+                    <p className="w-[250px] p-1 rounded-md m-1 text-black">
+                      {index + 1}
+                      {". "}
                       {following.name}
                     </p>
                     <button
                       onClick={() => handleUnFollow(following._id)}
-                      className="btn btn-sm btn-outline bg-cyan-500 hover:bg-rose-500 text-white"
+                      className="btn btn-sm btn-outline bg-cyan-500 hover:bg-rose-500 text-white hover:text-white"
                     >
                       Unfollow
                     </button>

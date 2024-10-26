@@ -89,6 +89,17 @@ const postsApi = baseApi.injectEndpoints({
         },
       }),
     }),
+    getAllPostPagination: builder.query({
+      query: ({ token }) => {
+        return {
+          url: `post/posts/all`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -101,4 +112,5 @@ export const {
   useGetCommentByPostIdQuery,
   useAddPostMutation,
   useGetPostByUserIdQuery,
+  useGetAllPostPaginationQuery
 } = postsApi;

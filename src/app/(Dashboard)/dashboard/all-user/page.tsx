@@ -17,7 +17,7 @@ const AllUser = () => {
   const { data, isLoading, refetch } = useGetAllUserQuery({ token });
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center m-auto">
+      <div className="min-h-screen min-w-[60vw] flex justify-center items-center m-auto">
         <span className="loading loading-spinner loading-lg text-info"></span>
       </div>
     );
@@ -86,7 +86,7 @@ const AllUser = () => {
             console.log(user.isPremium);
 
             return (
-              <tr key={user._id}>
+              <tr key={user._id} className="text-black font-medium">
                 <th>{index + 1}</th>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
@@ -94,18 +94,27 @@ const AllUser = () => {
                 <td>{user.role}</td>
                 <td>
                   {user.role === "admin" ? (
-                    <button
-                      onClick={() => handleUser(user._id)}
-                      className="btn btn-sm "
-                    >
-                      Make User
-                    </button>
+                    user?.role === "admin" ? (
+                      <button
+                        onClick={() => handleUser(user._id)}
+                        className="btn btn-sm btn-secondary text-white"
+                      >
+                        Admin To User
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleUser(user._id)}
+                        className="btn btn-sm"
+                      >
+                        Admin To User
+                      </button>
+                    )
                   ) : (
                     <button
                       onClick={() => handleAdmin(user._id)}
-                      className="btn btn-sm "
+                      className="btn btn-sm btn-info text-white"
                     >
-                      Make Admin
+                      User To Admin
                     </button>
                   )}
                 </td>

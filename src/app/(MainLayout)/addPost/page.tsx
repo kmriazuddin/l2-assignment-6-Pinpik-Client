@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { useTypedSelector } from "@/redux/hooks/useTypedSelector";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { IoImageOutline } from "react-icons/io5";
+import Footer from "@/components/SharedComponents/Footer/Footer";
 
 const QuillEditor = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -169,10 +170,14 @@ const AddPost = () => {
             {isLoading ? (
               <span className="loading loading-spinner"></span>
             ) : (
-              <>{"Upload Image"} <IoImageOutline className="text-xl" /></>
+              <>
+                {"Upload Image"} <IoImageOutline className="text-xl" />
+              </>
             )}
           </button>
-          {isSuccess && <p className="text-cyan-500">Image uploaded successfully!</p>}
+          {isSuccess && (
+            <p className="text-cyan-500">Image uploaded successfully!</p>
+          )}
           {isError && <p className="text-rose-500">Error uploading</p>}
         </div>
 
@@ -210,6 +215,8 @@ const AddPost = () => {
           Create Post <IoIosAddCircleOutline className="text-xl" />
         </button>
       </div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
